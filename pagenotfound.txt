@@ -1,0 +1,47 @@
+/////////////////////////////////////////////////////////////////////////////////
+// router.js
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+// Views
+import Main from './views/main.vue'
+import Login from './views/login.vue'
+import PageNotFound from './views/404.vue'
+
+export default new VueRouter({
+    mode: 'history', // removes the hash tag (e.g. localhost:8080/#/)
+    routes: [
+        {
+            path: '/',
+            component: Main
+        },
+        {
+            path: '*',
+            component: PageNotFound
+        },
+        {
+            // this URL works fine in "npm run serve" 
+            // this URL redirects to 404 | The requested path could not be found in "npm run build" 
+            // Note that the 404 page displayed was not the "PageNotFound" component.
+            path: '/my/route/to/login', 
+            component: Login
+        }
+    ]
+})
+
+
+/////////////////////////////////////////////////////////////////
+// main.js
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h => h(App),
+}).$mount('#app')
+
